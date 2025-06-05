@@ -13,6 +13,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'games')
 os.makedirs(DATA_DIR, exist_ok=True)
 
