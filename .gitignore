@@ -5,6 +5,7 @@ __pycache__/
 # Node
 node_modules/
 frontend/dist/
+frontend/.angular/
 
 # Game data
 backend/games/
