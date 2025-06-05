@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Dict, List
 import uuid
@@ -6,6 +7,13 @@ import json
 import os
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:4200"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'games')
 os.makedirs(DATA_DIR, exist_ok=True)
 
