@@ -9,3 +9,5 @@ frontend/.angular/
 
 # Game data
 backend/games/
+
+!backend/games/.gitkeep

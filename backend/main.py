@@ -14,11 +14,41 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-DATA_DIR = os.path.join(os.path.dirname(__file__), 'games')
-os.makedirs(DATA_DIR, exist_ok=True)
 
-# ----- Models -----
-class Allocation(BaseModel):
+
+
+def initial_board() -> List[List[str]]:
+    """Return a standard shogi starting position using simple piece codes."""
+    return [
+        ["l", "n", "s", "g", "k", "g", "s", "n", "l"],
+        ["", "r", "", "", "", "", "", "b", ""],
+        ["p", "p", "p", "p", "p", "p", "p", "p", "p"],
+        ["", "", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", "", ""],
+        ["P", "P", "P", "P", "P", "P", "P", "P", "P"],
+        ["", "B", "", "", "", "", "", "R", ""],
+        ["L", "N", "S", "G", "K", "G", "S", "N", "L"],
+    ]
+
+
+@app.get('/games')
+def list_games() -> List[str]:
+    """Return list of existing game IDs."""
+    return [f[:-5] for f in os.listdir(DATA_DIR) if f.endswith('.json')]
+
+
+    board = initial_board()
+
+
+
+    piece = board[move.from_y][move.from_x]
+    if not piece:
+        raise HTTPException(status_code=400, detail='No piece at from position')
+    # simple bounds check
+    if not (0 <= move.to_x < 9 and 0 <= move.to_y < 9):
+        raise HTTPException(status_code=400, detail='Invalid move target')
+    board[move.to_y][move.to_x] = piece
     allocations: Dict[str, int]  # piece name -> skill points
 
 class Move(BaseModel):
