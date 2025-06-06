@@ -1,0 +1,4 @@
+body { margin: 2rem; font-family: sans-serif; }
+.board { border-collapse: collapse; }
+.board td { width: 24px; height: 24px; text-align: center; border: 1px solid #ccc; cursor:pointer; }
+
